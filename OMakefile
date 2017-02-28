@@ -1,0 +1,19 @@
+.PHONY: all clean
+
+.DEFAULT: all
+
+CXXFLAGS = -O2 -Wall
+
+.SUBDIRS: AOJ POJ
+    # BuildInfo.omの内容を取り込む
+    include BuildInfo
+    targs = $(rootname $(glob *.cpp))
+    $(targs): %: %.cpp
+        $(CXX) $(CXXFLAGS) -o $@ $<
+
+    all: $(targs)
+
+    clean:
+        rm -f $(targs)
+
+    .DEFAULT: all
