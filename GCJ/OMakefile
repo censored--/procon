@@ -1,12 +1,6 @@
-.PHONY: all clean
+CXXFLAGS += -std=gnu++1y
 
-.DEFAULT: all
-
-CXXFLAGS = -O2 -Wall
-
-.SUBDIRS: AOJ POJ
-    # BuildInfo.omの内容を取り込む
-    include BuildInfo
+.SUBDIRS: $(glob D, *)
     targs = $(rootname $(glob *.cpp))
     $(targs): %: %.cpp
         $(CXX) $(CXXFLAGS) -o $@ $<
@@ -17,4 +11,3 @@ CXXFLAGS = -O2 -Wall
         rm -f $(targs)
 
     .DEFAULT: all
-.SUBDIRS: GCJ
